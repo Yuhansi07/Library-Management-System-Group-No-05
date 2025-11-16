@@ -1,0 +1,1054 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Book Catalog - Institute of Technology University of Moratuwa</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #1a5276 0%, #2e86c1 100%);
+      color: #333;
+      min-height: 100vh;
+    }
+
+    /* Header */
+    .books-header {
+      background: rgba(255, 255, 255, 0.95);
+      padding: 15px 0;
+      box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+    }
+
+    .header-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 20px;
+    }
+
+    .university-brand {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .logo {
+      width: 50px;
+      height: 50px;
+      background: white;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      border: 2px solid #1a5276;
+      overflow: hidden;
+    }
+
+    .logo img {
+      width: 90%;
+      height: 90%;
+      object-fit: contain;
+      border-radius: 6px;
+    }
+
+    .university-info h1 {
+      font-size: 1rem;
+      color: #1a5276;
+      font-weight: bold;
+      margin-bottom: 2px;
+    }
+
+    .university-info p {
+      font-size: 0.75rem;
+      color: #2e86c1;
+      font-weight: 500;
+    }
+
+    .nav-menu {
+      display: flex;
+      gap: 25px;
+      list-style: none;
+    }
+
+    .nav-menu a {
+      color: #1a5276;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: color 0.3s ease;
+      padding: 8px 15px;
+      border-radius: 20px;
+    }
+
+    .nav-menu a:hover {
+      color: #2e86c1;
+      background: rgba(26, 82, 118, 0.1);
+    }
+
+    .nav-menu a.active {
+      background: #1a5276;
+      color: white;
+    }
+
+    /* Main Content */
+    .books-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+
+    .page-header {
+      text-align: center;
+      margin-bottom: 40px;
+      color: white;
+    }
+
+    .page-title {
+      font-size: 2.5rem;
+      font-weight: 600;
+      margin-bottom: 15px;
+    }
+
+    .page-subtitle {
+      font-size: 1.1rem;
+      opacity: 0.9;
+    }
+
+    /* Search and Filters */
+    .search-filters-section {
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 20px;
+      padding: 30px;
+      margin-bottom: 40px;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+    }
+
+    .search-box-advanced {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 25px;
+    }
+
+    .search-input-advanced {
+      flex: 1;
+      padding: 15px 20px;
+      border: 2px solid #e0e0e0;
+      border-radius: 12px;
+      font-size: 16px;
+      transition: all 0.3s ease;
+      background: #f8f9fa;
+    }
+
+    .search-input-advanced:focus {
+      border-color: #1a5276;
+      background: white;
+      box-shadow: 0 0 0 3px rgba(26, 82, 118, 0.2);
+      outline: none;
+    }
+
+    .search-btn-advanced {
+      background: linear-gradient(135deg, #1a5276 0%, #2e86c1 100%);
+      color: white;
+      border: none;
+      padding: 15px 25px;
+      border-radius: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 5px 15px rgba(26, 82, 118, 0.4);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .search-btn-advanced:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(26, 82, 118, 0.6);
+    }
+
+    .filters-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+    }
+
+    .filter-group {
+      margin-bottom: 15px;
+    }
+
+    .filter-label {
+      display: block;
+      color: #1a5276;
+      font-weight: 600;
+      margin-bottom: 8px;
+      font-size: 0.9rem;
+    }
+
+    .filter-select {
+      width: 100%;
+      padding: 12px 15px;
+      border: 2px solid #e0e0e0;
+      border-radius: 8px;
+      font-size: 14px;
+      background: #f8f9fa;
+      transition: all 0.3s ease;
+    }
+
+    .filter-select:focus {
+      border-color: #1a5276;
+      background: white;
+      outline: none;
+    }
+
+    /* Books Grid */
+    .books-content {
+      display: grid;
+      grid-template-columns: 250px 1fr;
+      gap: 30px;
+    }
+
+    .sidebar {
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 15px;
+      padding: 25px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      height: fit-content;
+    }
+
+    .sidebar-section {
+      margin-bottom: 25px;
+    }
+
+    .sidebar-title {
+      color: #1a5276;
+      font-size: 1.1rem;
+      margin-bottom: 15px;
+      font-weight: 600;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #f1f1f1;
+    }
+
+    .category-list {
+      list-style: none;
+    }
+
+    .category-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 0;
+      cursor: pointer;
+      transition: color 0.3s ease;
+      color: #555;
+    }
+
+    .category-item:hover {
+      color: #1a5276;
+    }
+
+    .category-item.active {
+      color: #1a5276;
+      font-weight: 600;
+    }
+
+    .category-count {
+      background: #e9ecef;
+      color: #666;
+      padding: 2px 8px;
+      border-radius: 10px;
+      font-size: 0.8rem;
+    }
+
+    /* Main Books Grid */
+    .books-main {
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+    }
+
+    .books-header-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+      border-bottom: 2px solid #f1f1f1;
+    }
+
+    .books-count {
+      color: #1a5276;
+      font-weight: 600;
+      font-size: 1.1rem;
+    }
+
+    .sort-select {
+      padding: 8px 15px;
+      border: 2px solid #e0e0e0;
+      border-radius: 8px;
+      background: #f8f9fa;
+      color: #555;
+    }
+
+    .books-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 25px;
+    }
+
+    .book-card-advanced {
+      background: white;
+      border-radius: 15px;
+      padding: 25px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+      transition: all 0.3s ease;
+      border: 1px solid #f1f1f1;
+      position: relative;
+    }
+
+    .book-card-advanced:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+    }
+
+    .book-badge {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: #ffd700;
+      color: #1a5276;
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    .book-cover-large {
+      width: 120px;
+      height: 150px;
+      background: linear-gradient(135deg, #1a5276 0%, #2e86c1 100%);
+      border-radius: 10px;
+      margin: 0 auto 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 2.5rem;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    }
+
+    .book-info {
+      text-align: center;
+    }
+
+    .book-title-advanced {
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 8px;
+      font-size: 1.1rem;
+      line-height: 1.3;
+    }
+
+    .book-author-advanced {
+      color: #7f8c8d;
+      font-size: 0.9rem;
+      margin-bottom: 10px;
+    }
+
+    .book-meta {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 15px;
+      font-size: 0.8rem;
+      color: #666;
+    }
+
+    .book-category {
+      background: #e9ecef;
+      padding: 3px 8px;
+      border-radius: 8px;
+    }
+
+    .book-pages {
+      color: #7f8c8d;
+    }
+
+    .book-actions {
+      display: flex;
+      gap: 10px;
+    }
+
+    .action-btn {
+      flex: 1;
+      padding: 10px;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+    }
+
+    .borrow-btn {
+      background: linear-gradient(135deg, #1a5276 0%, #2e86c1 100%);
+      color: white;
+    }
+
+    .borrow-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(26, 82, 118, 0.4);
+    }
+
+    .borrow-btn:disabled {
+      background: #bdc3c7;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+
+    .details-btn {
+      background: transparent;
+      color: #1a5276;
+      border: 2px solid #1a5276;
+    }
+
+    .details-btn:hover {
+      background: #1a5276;
+      color: white;
+    }
+
+    /* Pagination */
+    .pagination {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 15px;
+      margin-top: 40px;
+      padding-top: 30px;
+      border-top: 2px solid #f1f1f1;
+    }
+
+    .page-btn {
+      width: 40px;
+      height: 40px;
+      border: 2px solid #e0e0e0;
+      border-radius: 8px;
+      background: white;
+      color: #555;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .page-btn.active {
+      background: #1a5276;
+      color: white;
+      border-color: #1a5276;
+    }
+
+    .page-btn:hover:not(.active) {
+      border-color: #1a5276;
+      color: #1a5276;
+    }
+
+    /* Footer */
+    .books-footer {
+      text-align: center;
+      padding: 40px 20px;
+      color: rgba(255, 255, 255, 0.8);
+    }
+
+    .university-motto {
+      font-style: italic;
+      margin-bottom: 15px;
+      font-size: 1.1rem;
+    }
+
+    .copyright {
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 1024px) {
+      .books-content {
+        grid-template-columns: 1fr;
+      }
+      
+      .sidebar {
+        order: 2;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .header-container {
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      .nav-menu {
+        gap: 15px;
+      }
+
+      .search-box-advanced {
+        flex-direction: column;
+      }
+
+      .books-grid {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      }
+
+      .page-title {
+        font-size: 2rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .nav-menu {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+      }
+
+      .books-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .books-header-bar {
+        flex-direction: column;
+        gap: 15px;
+        align-items: flex-start;
+      }
+
+      .filters-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="books-header">
+    <div class="header-container">
+      <div class="university-brand">
+        <div class="logo">
+          <img src="images/itum-logo.png" alt="ITUM Logo">
+        </div>
+        <div class="university-info">
+          <h1>INSTITUTE OF TECHNOLOGY</h1>
+          <p>UNIVERSITY OF MORATUWA</p>
+        </div>
+      </div>
+      
+      <nav>
+        <ul class="nav-menu">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="books.html" class="active">Books</a></li>
+          <li><a href="features.html">Features</a></li>
+          <li><a href="login.html">Login</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <div class="books-container">
+    <div class="page-header">
+      <h1 class="page-title">Book Catalog</h1>
+      <p class="page-subtitle">Browse our collection of 50,000+ academic resources and books</p>
+    </div>
+
+    <!-- Search and Filters -->
+    <div class="search-filters-section">
+      <div class="search-box-advanced">
+        <input type="text" class="search-input-advanced" id="catalogSearch" placeholder="Search by title, author, ISBN, or keyword...">
+        <button class="search-btn-advanced" onclick="searchCatalog()">
+          <i class="fas fa-search"></i>
+          SEARCH CATALOG
+        </button>
+      </div>
+
+      <div class="filters-grid">
+        <div class="filter-group">
+          <label class="filter-label">Category</label>
+          <select class="filter-select" id="categoryFilter" onchange="filterBooks()">
+            <option value="all">All Categories</option>
+            <option value="textbook">Textbooks</option>
+            <option value="research">Research Papers</option>
+            <option value="reference">Reference</option>
+            <option value="fiction">Fiction</option>
+            <option value="journal">Academic Journals</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label class="filter-label">Availability</label>
+          <select class="filter-select" id="availabilityFilter" onchange="filterBooks()">
+            <option value="all">All Books</option>
+            <option value="available">Available Now</option>
+            <option value="borrowed">Currently Borrowed</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label class="filter-label">Department</label>
+          <select class="filter-select" id="departmentFilter" onchange="filterBooks()">
+            <option value="all">All Departments</option>
+            <option value="computing">Computing</option>
+            <option value="engineering">Engineering</option>
+            <option value="business">Business</option>
+            <option value="science">Applied Sciences</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label class="filter-label">Sort By</label>
+          <select class="filter-select" id="sortFilter" onchange="sortBooks()">
+            <option value="title">Title A-Z</option>
+            <option value="author">Author A-Z</option>
+            <option value="popular">Most Popular</option>
+            <option value="recent">Recently Added</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="books-content">
+      <!-- Sidebar -->
+      <aside class="sidebar">
+        <div class="sidebar-section">
+          <h3 class="sidebar-title">Categories</h3>
+          <ul class="category-list">
+            <li class="category-item active" onclick="setCategory('all')">
+              <span>All Books</span>
+              <span class="category-count">128</span>
+            </li>
+            <li class="category-item" onclick="setCategory('textbook')">
+              <span>Textbooks</span>
+              <span class="category-count">45</span>
+            </li>
+            <li class="category-item" onclick="setCategory('research')">
+              <span>Research Papers</span>
+              <span class="category-count">32</span>
+            </li>
+            <li class="category-item" onclick="setCategory('reference')">
+              <span>Reference</span>
+              <span class="category-count">18</span>
+            </li>
+            <li class="category-item" onclick="setCategory('fiction')">
+              <span>Fiction</span>
+              <span class="category-count">12</span>
+            </li>
+            <li class="category-item" onclick="setCategory('journal')">
+              <span>Academic Journals</span>
+              <span class="category-count">21</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="sidebar-section">
+          <h3 class="sidebar-title">Quick Links</h3>
+          <ul class="category-list">
+            <li class="category-item">
+              <i class="fas fa-fire"></i>
+              <span>Popular This Week</span>
+            </li>
+            <li class="category-item">
+              <i class="fas fa-star"></i>
+              <span>New Arrivals</span>
+            </li>
+            <li class="category-item">
+              <i class="fas fa-download"></i>
+              <span>E-Books</span>
+            </li>
+            <li class="category-item">
+              <i class="fas fa-bookmark"></i>
+              <span>My Saved Books</span>
+            </li>
+          </ul>
+        </div>
+      </aside>
+
+      <!-- Main Books Grid -->
+      <main class="books-main">
+        <div class="books-header-bar">
+          <div class="books-count" id="booksCount">Showing 12 of 128 books</div>
+          <select class="sort-select" id="viewSort" onchange="sortBooks()">
+            <option value="title">Sort by Title</option>
+            <option value="author">Sort by Author</option>
+            <option value="date">Sort by Date</option>
+          </select>
+        </div>
+
+        <div class="books-grid" id="booksGrid">
+          <!-- Books will be populated by JavaScript -->
+        </div>
+
+        <!-- Pagination -->
+        <div class="pagination">
+          <button class="page-btn"><i class="fas fa-chevron-left"></i></button>
+          <button class="page-btn active">1</button>
+          <button class="page-btn">2</button>
+          <button class="page-btn">3</button>
+          <button class="page-btn">4</button>
+          <button class="page-btn"><i class="fas fa-chevron-right"></i></button>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="books-footer">
+    <div class="university-motto">"Advancing Knowledge Through Technology"</div>
+    <div class="copyright">&copy; 2024 Institute of Technology University of Moratuwa. All rights reserved.</div>
+  </footer>
+
+  <script>
+    // Extended book data
+    const catalogBooks = [
+      { 
+        id: 1, 
+        title: "Introduction to Algorithms", 
+        author: "Thomas H. Cormen", 
+        category: "textbook", 
+        department: "computing",
+        available: true, 
+        pages: 1312,
+        isNew: true,
+        isPopular: true
+      },
+      { 
+        id: 2, 
+        title: "Clean Code: A Handbook of Agile Software Craftsmanship", 
+        author: "Robert C. Martin", 
+        category: "textbook", 
+        department: "computing",
+        available: true, 
+        pages: 464,
+        isNew: false,
+        isPopular: true
+      },
+      { 
+        id: 3, 
+        title: "The Pragmatic Programmer", 
+        author: "Andrew Hunt, David Thomas", 
+        category: "textbook", 
+        department: "computing",
+        available: false, 
+        pages: 352,
+        isNew: false,
+        isPopular: true
+      },
+      { 
+        id: 4, 
+        title: "Design Patterns: Elements of Reusable Object-Oriented Software", 
+        author: "Erich Gamma", 
+        category: "reference", 
+        department: "computing",
+        available: true, 
+        pages: 395,
+        isNew: false,
+        isPopular: false
+      },
+      { 
+        id: 5, 
+        title: "Artificial Intelligence: A Modern Approach", 
+        author: "Stuart Russell, Peter Norvig", 
+        category: "textbook", 
+        department: "computing",
+        available: true, 
+        pages: 1136,
+        isNew: true,
+        isPopular: false
+      },
+      { 
+        id: 6, 
+        title: "Data Structures and Algorithms in Java", 
+        author: "Michael T. Goodrich", 
+        category: "textbook", 
+        department: "computing",
+        available: true, 
+        pages: 736,
+        isNew: false,
+        isPopular: true
+      },
+      { 
+        id: 7, 
+        title: "Machine Learning: A Probabilistic Perspective", 
+        author: "Kevin P. Murphy", 
+        category: "research", 
+        department: "computing",
+        available: true, 
+        pages: 1104,
+        isNew: false,
+        isPopular: false
+      },
+      { 
+        id: 8, 
+        title: "Database System Concepts", 
+        author: "Abraham Silberschatz", 
+        category: "textbook", 
+        department: "computing",
+        available: false, 
+        pages: 1344,
+        isNew: false,
+        isPopular: true
+      },
+      { 
+        id: 9, 
+        title: "Computer Networks", 
+        author: "Andrew S. Tanenbaum", 
+        category: "textbook", 
+        department: "engineering",
+        available: true, 
+        pages: 960,
+        isNew: true,
+        isPopular: false
+      },
+      { 
+        id: 10, 
+        title: "Operating System Concepts", 
+        author: "Abraham Silberschatz", 
+        category: "textbook", 
+        department: "computing",
+        available: true, 
+        pages: 976,
+        isNew: false,
+        isPopular: true
+      },
+      { 
+        id: 11, 
+        title: "The Great Gatsby", 
+        author: "F. Scott Fitzgerald", 
+        category: "fiction", 
+        department: "all",
+        available: true, 
+        pages: 180,
+        isNew: false,
+        isPopular: false
+      },
+      { 
+        id: 12, 
+        title: "Research Methods in Computer Science", 
+        author: "John W. Creswell", 
+        category: "research", 
+        department: "computing",
+        available: true, 
+        pages: 432,
+        isNew: true,
+        isPopular: false
+      }
+    ];
+
+    let currentBooks = [...catalogBooks];
+    let currentCategory = 'all';
+
+    function searchCatalog() {
+      const searchTerm = document.getElementById('catalogSearch').value.toLowerCase();
+      
+      if (searchTerm.trim() === '') {
+        currentBooks = [...catalogBooks];
+      } else {
+        currentBooks = catalogBooks.filter(book => 
+          book.title.toLowerCase().includes(searchTerm) || 
+          book.author.toLowerCase().includes(searchTerm)
+        );
+      }
+      
+      filterBooks();
+    }
+
+    function setCategory(category) {
+      currentCategory = category;
+      
+      // Update active category in sidebar
+      document.querySelectorAll('.category-item').forEach(item => {
+        item.classList.remove('active');
+      });
+      event.target.classList.add('active');
+      
+      filterBooks();
+    }
+
+    function filterBooks() {
+      let filteredBooks = [...currentBooks];
+      const category = document.getElementById('categoryFilter').value;
+      const availability = document.getElementById('availabilityFilter').value;
+      const department = document.getElementById('departmentFilter').value;
+
+      // Apply category filter
+      if (category !== 'all') {
+        filteredBooks = filteredBooks.filter(book => book.category === category);
+      }
+
+      // Apply availability filter
+      if (availability !== 'all') {
+        filteredBooks = filteredBooks.filter(book => 
+          availability === 'available' ? book.available : !book.available
+        );
+      }
+
+      // Apply department filter
+      if (department !== 'all') {
+        filteredBooks = filteredBooks.filter(book => 
+          book.department === department || book.department === 'all'
+        );
+      }
+
+      displayBooks(filteredBooks);
+    }
+
+    function sortBooks() {
+      const sortBy = document.getElementById('sortFilter').value;
+      
+      currentBooks.sort((a, b) => {
+        switch(sortBy) {
+          case 'title':
+            return a.title.localeCompare(b.title);
+          case 'author':
+            return a.author.localeCompare(b.author);
+          case 'popular':
+            return (b.isPopular === a.isPopular) ? 0 : b.isPopular ? 1 : -1;
+          case 'recent':
+            return (b.isNew === a.isNew) ? 0 : b.isNew ? 1 : -1;
+          default:
+            return 0;
+        }
+      });
+      
+      displayBooks(currentBooks);
+    }
+
+    function displayBooks(books) {
+      const booksGrid = document.getElementById('booksGrid');
+      const booksCount = document.getElementById('booksCount');
+      
+      booksCount.textContent = `Showing ${books.length} of ${catalogBooks.length} books`;
+      booksGrid.innerHTML = '';
+      
+      if (books.length === 0) {
+        booksGrid.innerHTML = `
+          <div style="grid-column: 1/-1; text-align: center; padding: 60px; color: #666;">
+            <i class="fas fa-search" style="font-size: 3rem; margin-bottom: 20px; opacity: 0.5;"></i>
+            <h3 style="margin-bottom: 10px;">No books found</h3>
+            <p>Try adjusting your search criteria or filters</p>
+          </div>
+        `;
+        return;
+      }
+      
+      books.forEach(book => {
+        const bookCard = `
+          <div class="book-card-advanced">
+            ${book.isNew ? '<div class="book-badge">NEW</div>' : ''}
+            ${book.isPopular ? '<div class="book-badge" style="background: #e74c3c; color: white;">POPULAR</div>' : ''}
+            
+            <div class="book-cover-large">
+              <i class="fas fa-book"></i>
+            </div>
+            
+            <div class="book-info">
+              <div class="book-title-advanced">${book.title}</div>
+              <div class="book-author-advanced">${book.author}</div>
+              
+              <div class="book-meta">
+                <span class="book-category">${book.category}</span>
+                <span class="book-pages">${book.pages} pages</span>
+              </div>
+              
+              <div class="book-actions">
+                <button class="action-btn borrow-btn" ${book.available ? '' : 'disabled'} onclick="borrowBook(${book.id})">
+                  <i class="fas fa-book"></i>
+                  ${book.available ? 'BORROW' : 'BORROWED'}
+                </button>
+                <button class="action-btn details-btn" onclick="viewBookDetails(${book.id})">
+                  <i class="fas fa-info"></i>
+                  DETAILS
+                </button>
+              </div>
+            </div>
+          </div>
+        `;
+        booksGrid.innerHTML += bookCard;
+      });
+    }
+
+    function borrowBook(bookId) {
+      const book = catalogBooks.find(b => b.id === bookId);
+      if (book && book.available) {
+        if (confirm(`Are you sure you want to borrow "${book.title}"?`)) {
+          book.available = false;
+          filterBooks();
+          alert('Book borrowed successfully! Please collect it from the library.');
+        }
+      }
+    }
+
+    function viewBookDetails(bookId) {
+      const book = catalogBooks.find(b => b.id === bookId);
+      if (book) {
+        alert(`Book Details:\n\nTitle: ${book.title}\nAuthor: ${book.author}\nCategory: ${book.category}\nPages: ${book.pages}\nStatus: ${book.available ? 'Available' : 'Currently Borrowed'}`);
+      }
+    }
+
+    // Initialize the page
+    document.addEventListener('DOMContentLoaded', function() {
+      displayBooks(catalogBooks);
+      
+      // Add enter key support for search
+      document.getElementById('catalogSearch').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+          searchCatalog();
+        }
+      });
+
+      // Check authentication for navigation
+      checkAuth();
+    });
+
+    // Logout function
+    function logout() {
+      localStorage.removeItem('isLoggedIn');
+      localStorage.removeItem('userName');
+      localStorage.removeItem('userInitials');
+      window.location.href = 'index.html';
+    }
+
+    // Check login status on page load
+    function checkAuth() {
+      const isLoggedIn = localStorage.getItem('isLoggedIn');
+      const navMenu = document.querySelector('.nav-menu');
+      
+      if (isLoggedIn && navMenu) {
+        // User is logged in - show user navigation
+        const currentPage = window.location.pathname.split('/').pop();
+        
+        let navHTML = `
+          <li><a href="index.html" ${currentPage === 'index.html' ? 'class="active"' : ''}>Home</a></li>
+          <li><a href="books.html" ${currentPage === 'books.html' ? 'class="active"' : ''}>Books</a></li>
+          <li><a href="dashboard.html" ${currentPage === 'dashboard.html' ? 'class="active"' : ''}>Dashboard</a></li>
+          <li><a href="profile.html" ${currentPage === 'profile.html' ? 'class="active"' : ''}>Profile</a></li>
+          <li><a href="index.html" onclick="logout()">Logout</a></li>
+        `;
+        
+        navMenu.innerHTML = navHTML;
+      }
+    }
+  </script>
+</body>
+</html>
